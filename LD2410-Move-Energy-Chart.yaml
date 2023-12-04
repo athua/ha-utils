@@ -1,0 +1,86 @@
+# The following code for a lovelace card requires installation of the Plotly Graph Card from HACS in Home Assistant.
+# To use this card, add a manual lovelace card and paste the follow code in ensuring to replace the sensor names with your sensor's name.
+type: custom:plotly-graph
+title: Movement Energy
+refresh_interval: 1
+hours_to_show: current_day
+layout:
+  height: 350
+  margin:
+    l: 50
+    r: 50
+    t: 50
+    b: 50
+  showlegend: true
+  legend:
+    x: 0.3
+    'y': -0.3
+  xaxis:
+    dtick: 1
+    type: number
+    fixedrange: true
+    range:
+      - 0
+      - 8
+  yaxis:
+    dtick: 10
+    fixedrange: true
+    range:
+      - 0
+      - 100
+entities:
+  - entity: ''
+    name: Threshold
+    mode: lines
+    line:
+      shape: spline
+      width: 2
+      color: FB239F
+    x:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+    'y':
+      - $ex hass.states["number.g0_move_threshold"].state
+      - $ex hass.states["number.g1_move_threshold"].state
+      - $ex hass.states["number.g2_move_threshold"].state
+      - $ex hass.states["number.g3_move_threshold"].state
+      - $ex hass.states["number.g4_move_threshold"].state
+      - $ex hass.states["number.g5_move_threshold"].state
+      - $ex hass.states["number.g6_move_threshold"].state
+      - $ex hass.states["number.g7_move_threshold"].state
+      - $ex hass.states["number.g8_move_threshold"].state
+  - entity: ''
+    name: Energy
+    mode: lines
+    line:
+      shape: spline
+      width: 2
+      color: blue
+    x:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+    'y':
+      - $ex hass.states["sensor.g0_move_energy"].state
+      - $ex hass.states["sensor.g1_move_energy"].state
+      - $ex hass.states["sensor.g2_move_energy"].state
+      - $ex hass.states["sensor.g3_move_energy"].state
+      - $ex hass.states["sensor.g4_move_energy"].state
+      - $ex hass.states["sensor.g5_move_energy"].state
+      - $ex hass.states["sensor.g6_move_energy"].state
+      - $ex hass.states["sensor.g7_move_energy"].state
+      - $ex hass.states["sensor.g8_move_energy"].state
+raw_plotly_config: true
