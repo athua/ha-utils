@@ -1,5 +1,4 @@
 # The following code for a lovelace card requires installation of the Plotly Graph Card from HACS in Home Assistant.
-
 type: custom:plotly-graph
 title: Target Positions
 refresh_interval: 1
