@@ -1,7 +1,16 @@
 # The following code for a lovelace card requires installation of the Plotly Graph Card from HACS in Home Assistant.
-# To use this card, add a manual lovelace card and paste the follow code in ensuring to replace the sensor names with your sensor's name.
+# To use this card, add a manual lovelace card and paste the follow code and replace the variable values with 
+# your sensor names
+
 type: custom:plotly-graph
-title: Target Positions
+fn:
+  - $ex vars.espName = "ESP32-1"
+  - $ex vars.sensorName = "ld2450-radar"
+  - $ex vars.zone1Name = "Zone 1"
+  - $ex vars.zone2Name = "Zone 2"
+  - $ex vars.zone3Name = "Zone 3"
+  - $ex vars.exlusionZoneName = "Exclusion"
+title: $ex vars.espName + " Target Positions"
 refresh_interval: 1
 hours_to_show: current_day
 layout:
@@ -19,8 +28,8 @@ layout:
     type: number
     fixedrange: true
     range:
-      - 4000
-      - -4000
+      - 5000
+      - -5000
   yaxis:
     dtick: 1000
     gridcolor: RGBA(200,200,200,0.15)
@@ -32,7 +41,7 @@ layout:
       - 7500
       - 0
 entities:
-  - entity: ''
+  - entity: ""
     name: Target1
     marker:
       size: 12
@@ -40,10 +49,16 @@ entities:
       shape: spline
       width: 5
     x:
-      - $ex hass.states["sensor.screek_human_sensor_2a_734e6c_target1_x"].state
-    'y':
-      - $ex hass.states["sensor.screek_human_sensor_2a_734e6c_target1_y"].state
-  - entity: ''
+      - >-
+        $ex { var x = hass.states["sensor." + vars.sensorName +
+        "_target1_x"].state; var y = hass.states["sensor." + vars.sensorName +
+        "_target1_y"].state; if (x == 0 && y == 0) { return -9999 }; return x; }
+    "y":
+      - >-
+        $ex { var x = hass.states["sensor." + vars.sensorName +
+        "_target1_x"].state; var y = hass.states["sensor." + vars.sensorName +
+        "_target1_y"].state; if (x == 0 && y == 0) { return -9999 }; return y; }
+  - entity: ""
     name: Target2
     marker:
       size: 12
@@ -51,10 +66,16 @@ entities:
       shape: spline
       width: 5
     x:
-      - $ex hass.states["sensor.screek_human_sensor_2a_734e6c_target2_x"].state
-    'y':
-      - $ex hass.states["sensor.screek_human_sensor_2a_734e6c_target2_y"].state
-  - entity: ''
+      - >-
+        $ex { var x = hass.states["sensor." + vars.sensorName +
+        "_target2_x"].state; var y = hass.states["sensor." + vars.sensorName +
+        "_target2_y"].state; if (x == 0 && y == 0) { return -9999 }; return x; }
+    "y":
+      - >-
+        $ex { var x = hass.states["sensor." + vars.sensorName +
+        "_target2_x"].state; var y = hass.states["sensor." + vars.sensorName +
+        "_target2_y"].state; if (x == 0 && y == 0) { return -9999 }; return y; }
+  - entity: ""
     name: Target3
     marker:
       size: 12
@@ -62,11 +83,17 @@ entities:
       shape: spline
       width: 5
     x:
-      - $ex hass.states["sensor.screek_human_sensor_2a_734e6c_target3_x"].state
-    'y':
-      - $ex hass.states["sensor.screek_human_sensor_2a_734e6c_target3_y"].state
-  - entity: ''
-    name: Zone1
+      - >-
+        $ex { var x = hass.states["sensor." + vars.sensorName +
+        "_target3_x"].state; var y = hass.states["sensor." + vars.sensorName +
+        "_target3_y"].state; if (x == 0 && y == 0) { return -9999 }; return x; }
+    "y":
+      - >-
+        $ex { var x = hass.states["sensor." + vars.sensorName +
+        "_target3_x"].state; var y = hass.states["sensor." + vars.sensorName +
+        "_target3_y"].state; if (x == 0 && y == 0) { return -9999 }; return y; }
+  - entity: ""
+    name: $ex vars.zone1Name
     mode: lines
     fill: toself
     fillcolor: RGBA(20,200,0,0.06)
@@ -75,39 +102,19 @@ entities:
       shape: line
       width: 2
     x:
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone1_x_begin"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone1_x_begin"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone1_x_end"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone1_x_end"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone1_x_begin"].state
-    'y':
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone1_y_begin"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone1_y_end"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone1_y_end"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone1_y_begin"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone1_y_begin"].state
-  - entity: ''
-    name: Zone2
+      - $ex hass.states["number." + vars.sensorName + "_zone1_x_begin"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone1_x_begin"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone1_x_end"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone1_x_end"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone1_x_begin"].state
+    "y":
+      - $ex hass.states["number." + vars.sensorName + "_zone1_y_begin"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone1_y_end"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone1_y_end"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone1_y_begin"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone1_y_begin"].state
+  - entity: ""
+    name: $ex vars.zone2Name
     mode: lines
     fill: toself
     fillcolor: RGBA(200,0,255,0.06)
@@ -116,39 +123,19 @@ entities:
       shape: line
       width: 2
     x:
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone2_x_begin"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone2_x_begin"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone2_x_end"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone2_x_end"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone2_x_begin"].state
-    'y':
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone2_y_begin"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone2_y_end"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone2_y_end"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone2_y_begin"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone2_y_begin"].state
-  - entity: ''
-    name: Zone3
+      - $ex hass.states["number." + vars.sensorName + "_zone2_x_begin"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone2_x_begin"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone2_x_end"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone2_x_end"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone2_x_begin"].state
+    "y":
+      - $ex hass.states["number." + vars.sensorName + "_zone2_y_begin"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone2_y_end"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone2_y_end"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone2_y_begin"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone2_y_begin"].state
+  - entity: ""
+    name: $ex vars.zone3Name
     mode: lines
     fill: toself
     fillcolor: RGBA(200,120,55,0.06)
@@ -157,39 +144,19 @@ entities:
       shape: line
       width: 2
     x:
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone3_x_begin"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone3_x_begin"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone3_x_end"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone3_x_end"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone3_x_begin"].state
-    'y':
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone3_y_begin"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone3_y_end"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone3_y_end"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone3_y_begin"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zone3_y_begin"].state
-  - entity: ''
-    name: ExZone
+      - $ex hass.states["number." + vars.sensorName + "_zone3_x_begin"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone3_x_begin"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone3_x_end"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone3_x_end"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone3_x_begin"].state
+    "y":
+      - $ex hass.states["number." + vars.sensorName + "_zone3_y_begin"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone3_y_end"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone3_y_end"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone3_y_begin"].state
+      - $ex hass.states["number." + vars.sensorName + "_zone3_y_begin"].state
+  - entity: ""
+    name: $ex vars.exlusionZoneName
     mode: lines
     fill: toself
     fillcolor: RGBA(255,0,0,0.15)
@@ -198,42 +165,22 @@ entities:
       width: 1
       color: RGBA(255,0,0,0.2)
     x:
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zout1_x_begin"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zout1_x_begin"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zout1_x_end"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zout1_x_end"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zout1_x_begin"].state
-    'y':
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zout1_y_begin"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zout1_y_end"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zout1_y_end"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zout1_y_begin"].state
-      - >-
-        $ex
-        hass.states["number.screek_human_sensor_2a_734e6c_zout1_y_begin"].state
-  - entity: ''
+      - $ex hass.states["number." + vars.sensorName + "_zout1_x_begin"].state
+      - $ex hass.states["number." + vars.sensorName + "_zout1_x_begin"].state
+      - $ex hass.states["number." + vars.sensorName + "_zout1_x_end"].state
+      - $ex hass.states["number." + vars.sensorName + "_zout1_x_end"].state
+      - $ex hass.states["number." + vars.sensorName + "_zout1_x_begin"].state
+    "y":
+      - $ex hass.states["number." + vars.sensorName + "_zout1_y_begin"].state
+      - $ex hass.states["number." + vars.sensorName + "_zout1_y_end"].state
+      - $ex hass.states["number." + vars.sensorName + "_zout1_y_end"].state
+      - $ex hass.states["number." + vars.sensorName + "_zout1_y_begin"].state
+      - $ex hass.states["number." + vars.sensorName + "_zout1_y_begin"].state
+  - entity: ""
     name: Coverage
     mode: lines
     fill: tonexty
-    fillcolor: rgba(168, 216, 234, 0.15)
+    fillcolor: rgba(168, 216, 234, 0.07)
     line:
       shape: line
       width: 1
@@ -254,7 +201,7 @@ entities:
       - -4500
       - $ex -7500 * Math.sin((2 * Math.PI)/360 * 60)
       - 0
-    'y':
+    "y":
       - 0
       - $ex 7500 * Math.cos((2 * Math.PI)/360 * 60)
       - $ex Math.sqrt( 7500**2 - 4500**2 )
