@@ -1,7 +1,11 @@
 # The following code for a lovelace card requires installation of the Plotly Graph Card from HACS in Home Assistant.
-# To use this card, add a manual lovelace card and paste the follow code in ensuring to replace the sensor names with your sensor's name.
+# To use this card, add a manual lovelace card and paste the follow code and replace the sensor name variables
+# with your sensors name without the gate number prefix.
 type: custom:plotly-graph
 title: Still Energy
+fn:
+  - $ex vars.stillEnergySensorName = "still_energy_front_door"
+  - $ex vars.stillThresholdSensorName = "still_threshold_front_door"
 refresh_interval: 1
 hours_to_show: current_day
 layout:
@@ -14,7 +18,7 @@ layout:
   showlegend: true
   legend:
     x: 0.3
-    'y': -0.3
+    "y": -0.3
   xaxis:
     dtick: 1
     type: number
@@ -29,7 +33,7 @@ layout:
       - 0
       - 100
 entities:
-  - entity: ''
+  - entity: ""
     name: Threshold
     mode: lines
     line:
@@ -46,17 +50,17 @@ entities:
       - 6
       - 7
       - 8
-    'y':
-      - $ex hass.states["number.g0_still_threshold"].state
-      - $ex hass.states["number.g1_still_threshold"].state
-      - $ex hass.states["number.g2_still_threshold"].state
-      - $ex hass.states["number.g3_still_threshold"].state
-      - $ex hass.states["number.g4_still_threshold"].state
-      - $ex hass.states["number.g5_still_threshold"].state
-      - $ex hass.states["number.g6_still_threshold"].state
-      - $ex hass.states["number.g7_still_threshold"].state
-      - $ex hass.states["number.g8_still_threshold"].state
-  - entity: ''
+    "y":
+      - $ex hass.states["number.g0_" + vars.stillThresholdSensorName].state
+      - $ex hass.states["number.g1_" + vars.stillThresholdSensorName].state
+      - $ex hass.states["number.g2_" + vars.stillThresholdSensorName].state
+      - $ex hass.states["number.g3_" + vars.stillThresholdSensorName].state
+      - $ex hass.states["number.g4_" + vars.stillThresholdSensorName].state
+      - $ex hass.states["number.g5_" + vars.stillThresholdSensorName].state
+      - $ex hass.states["number.g6_" + vars.stillThresholdSensorName].state
+      - $ex hass.states["number.g7_" + vars.stillThresholdSensorName].state
+      - $ex hass.states["number.g8_" + vars.stillThresholdSensorName].state
+  - entity: ""
     name: Energy
     mode: lines
     line:
@@ -73,14 +77,15 @@ entities:
       - 6
       - 7
       - 8
-    'y':
-      - $ex hass.states["sensor.g0_still_energy"].state
-      - $ex hass.states["sensor.g1_still_energy"].state
-      - $ex hass.states["sensor.g2_still_energy"].state
-      - $ex hass.states["sensor.g3_still_energy"].state
-      - $ex hass.states["sensor.g4_still_energy"].state
-      - $ex hass.states["sensor.g5_still_energy"].state
-      - $ex hass.states["sensor.g6_still_energy"].state
-      - $ex hass.states["sensor.g7_still_energy"].state
-      - $ex hass.states["sensor.g8_still_energy"].state
+    "y":
+      - $ex hass.states["sensor.g0_" + vars.stillEnergySensorName].state
+      - $ex hass.states["sensor.g1_" + vars.stillEnergySensorName].state
+      - $ex hass.states["sensor.g2_" + vars.stillEnergySensorName].state
+      - $ex hass.states["sensor.g3_" + vars.stillEnergySensorName].state
+      - $ex hass.states["sensor.g4_" + vars.stillEnergySensorName].state
+      - $ex hass.states["sensor.g5_" + vars.stillEnergySensorName].state
+      - $ex hass.states["sensor.g6_" + vars.stillEnergySensorName].state
+      - $ex hass.states["sensor.g7_" + vars.stillEnergySensorName].state
+      - $ex hass.states["sensor.g8_" + vars.stillEnergySensorName].state
 raw_plotly_config: true
+
