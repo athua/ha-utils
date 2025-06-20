@@ -1,7 +1,14 @@
 # The following code for a lovelace card requires installation of the Plotly Graph Card from HACS in Home Assistant.
 # To use this card, add a manual lovelace card and paste the follow code and replace the variable values with 
 # your sensor names
+#
 # To configure, adjust the name vars below to match the sensor and number entity names in Home Assistant.
+# eg.
+#   If your sensor name is 'sensor.ld2450-radar_target_1_x'
+#   Use vars.sensorName = "ld2450-radar"
+#
+#   If your number entity name is 'number.ld2450-radar_zone_1_x1'
+#   vars.numberEntityName = "ld2450-radar"
 
 type: custom:plotly-graph
 fn:
