@@ -6,6 +6,7 @@ type: custom:plotly-graph
 fn:
   - $ex vars.espName = "ESP32-1"
   - $ex vars.sensorName = "ld2450-radar"
+  - $ex vars.zoneSensorName = "ld2450-zones"
   - $ex vars.zone1Name = "Zone 1"
   - $ex vars.zone2Name = "Zone 2"
   - $ex vars.zone3Name = "Zone 3"
@@ -102,17 +103,29 @@ entities:
       shape: line
       width: 2
     x:
-      - $ex hass.states["number." + vars.sensorName + "_zone1_x_begin"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone1_x_begin"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone1_x_end"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone1_x_end"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone1_x_begin"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone1_x_begin"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone1_x_begin"].state
+      - $ex hass.states["number." + vars.zoneSensorName + "_zone1_x_end"].state
+      - $ex hass.states["number." + vars.zoneSensorName + "_zone1_x_end"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone1_x_begin"].state
     "y":
-      - $ex hass.states["number." + vars.sensorName + "_zone1_y_begin"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone1_y_end"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone1_y_end"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone1_y_begin"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone1_y_begin"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone1_y_begin"].state
+      - $ex hass.states["number." + vars.zoneSensorName + "_zone1_y_end"].state
+      - $ex hass.states["number." + vars.zoneSensorName + "_zone1_y_end"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone1_y_begin"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone1_y_begin"].state
   - entity: ""
     name: $ex vars.zone2Name
     mode: lines
@@ -123,17 +136,29 @@ entities:
       shape: line
       width: 2
     x:
-      - $ex hass.states["number." + vars.sensorName + "_zone2_x_begin"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone2_x_begin"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone2_x_end"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone2_x_end"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone2_x_begin"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone2_x_begin"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone2_x_begin"].state
+      - $ex hass.states["number." + vars.zoneSensorName + "_zone2_x_end"].state
+      - $ex hass.states["number." + vars.zoneSensorName + "_zone2_x_end"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone2_x_begin"].state
     "y":
-      - $ex hass.states["number." + vars.sensorName + "_zone2_y_begin"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone2_y_end"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone2_y_end"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone2_y_begin"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone2_y_begin"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone2_y_begin"].state
+      - $ex hass.states["number." + vars.zoneSensorName + "_zone2_y_end"].state
+      - $ex hass.states["number." + vars.zoneSensorName + "_zone2_y_end"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone2_y_begin"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone2_y_begin"].state
   - entity: ""
     name: $ex vars.zone3Name
     mode: lines
@@ -144,17 +169,29 @@ entities:
       shape: line
       width: 2
     x:
-      - $ex hass.states["number." + vars.sensorName + "_zone3_x_begin"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone3_x_begin"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone3_x_end"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone3_x_end"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone3_x_begin"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone3_x_begin"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone3_x_begin"].state
+      - $ex hass.states["number." + vars.zoneSensorName + "_zone3_x_end"].state
+      - $ex hass.states["number." + vars.zoneSensorName + "_zone3_x_end"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone3_x_begin"].state
     "y":
-      - $ex hass.states["number." + vars.sensorName + "_zone3_y_begin"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone3_y_end"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone3_y_end"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone3_y_begin"].state
-      - $ex hass.states["number." + vars.sensorName + "_zone3_y_begin"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone3_y_begin"].state
+      - $ex hass.states["number." + vars.zoneSensorName + "_zone3_y_end"].state
+      - $ex hass.states["number." + vars.zoneSensorName + "_zone3_y_end"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone3_y_begin"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zone3_y_begin"].state
   - entity: ""
     name: $ex vars.exlusionZoneName
     mode: lines
@@ -165,17 +202,29 @@ entities:
       width: 1
       color: RGBA(255,0,0,0.2)
     x:
-      - $ex hass.states["number." + vars.sensorName + "_zout1_x_begin"].state
-      - $ex hass.states["number." + vars.sensorName + "_zout1_x_begin"].state
-      - $ex hass.states["number." + vars.sensorName + "_zout1_x_end"].state
-      - $ex hass.states["number." + vars.sensorName + "_zout1_x_end"].state
-      - $ex hass.states["number." + vars.sensorName + "_zout1_x_begin"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zout1_x_begin"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zout1_x_begin"].state
+      - $ex hass.states["number." + vars.zoneSensorName + "_zout1_x_end"].state
+      - $ex hass.states["number." + vars.zoneSensorName + "_zout1_x_end"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zout1_x_begin"].state
     "y":
-      - $ex hass.states["number." + vars.sensorName + "_zout1_y_begin"].state
-      - $ex hass.states["number." + vars.sensorName + "_zout1_y_end"].state
-      - $ex hass.states["number." + vars.sensorName + "_zout1_y_end"].state
-      - $ex hass.states["number." + vars.sensorName + "_zout1_y_begin"].state
-      - $ex hass.states["number." + vars.sensorName + "_zout1_y_begin"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zout1_y_begin"].state
+      - $ex hass.states["number." + vars.zoneSensorName + "_zout1_y_end"].state
+      - $ex hass.states["number." + vars.zoneSensorName + "_zout1_y_end"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zout1_y_begin"].state
+      - >-
+        $ex hass.states["number." + vars.zoneSensorName +
+        "_zout1_y_begin"].state
   - entity: ""
     name: Coverage
     mode: lines
