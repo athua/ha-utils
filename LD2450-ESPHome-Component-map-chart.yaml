@@ -8,7 +8,7 @@
 #   Use vars.sensorName = "ld2450-radar"
 #
 #   If your number entity name is 'number.ld2450-radar_zone_1_x1'
-#   vars.numberEntityName = "ld2450-radar"
+#   Use vars.numberEntityName = "ld2450-radar"
 
 type: custom:plotly-graph
 fn:
