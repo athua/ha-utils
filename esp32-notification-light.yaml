@@ -1,0 +1,161 @@
+substitutions:
+  name: "esp32-c3"
+  friendly_name: ESP32-C3
+  espID: esphome_1
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  platformio_options:
+    board_build.flash_mode: dio
+
+esp32:
+  board: esp32-c3-devkitm-1
+  framework:
+    type: esp-idf
+
+api:
+  encryption:
+    key: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+ota:
+  - platform: esphome
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  ap:
+    ssid: ${friendly_name}
+    password: "xxxxxxxxxxxxxxx"
+
+captive_portal:
+
+debug:
+  update_interval: 120s
+
+logger:
+  level: INFO
+  baud_rate: 0
+
+esp32_ble_tracker:
+  scan_parameters:
+    active: true
+
+bluetooth_proxy:
+  active: true
+
+light:
+  - platform: status_led
+    id: status_light
+    output: status_output
+  - platform: esp32_rmt_led_strip
+    rgb_order: GRB
+    id: ${espID}_rgb_led
+    name: Status RGB LED
+    chipset: ws2812
+    effects:
+      - pulse:
+          transition_length:
+            on_length: 500ms
+            off_length: 1s
+          update_interval: 1.5s
+          max_brightness: 80%
+    pin: 8
+    num_leds: 1
+    icon: mdi:led-outline
+    entity_category: config
+    restore_mode: ALWAYS_OFF
+
+output:
+  - platform: template
+    id: status_output
+    type: binary
+    write_action:
+      - if:
+          condition:
+             lambda: return state > 0;
+          then:
+            - if:
+                condition:
+                  switch.is_off: status_led_switch
+                then:
+                  switch.turn_on: status_led_switch
+          else:
+            - if:
+                condition:
+                  switch.is_on: status_led_switch
+                then:
+                  switch.turn_off: status_led_switch
+
+switch:
+  - platform: template
+    id: status_led_switch
+    optimistic: true
+    on_turn_on:
+      - light.turn_on: 
+          id: ${espID}_rgb_led
+          red: 100%
+          green: 0%
+          blue: 0%
+          brightness: 20%
+          transition_length: 50ms
+    on_turn_off:
+      - light.turn_off: 
+          id: ${espID}_rgb_led
+          transition_length: 50ms
+  - platform: template
+    name: "Pulse LED ${friendly_name}"
+    optimistic: True
+    turn_on_action:
+    - light.turn_on:
+        id: ${espID}_rgb_led
+        effect: pulse
+    turn_off_action:
+    - light.turn_off:
+        id: ${espID}_rgb_led
+
+button:
+  - platform: restart
+    name: "ESP32 Restart ${friendly_name}"
+  - platform: safe_mode
+    name: "ESP32 Safe Mode Boot ${friendly_name}"
+    entity_category: diagnostic
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: "ESP IP Address ${friendly_name}"
+    ssid:
+      name: "ESP Connected SSID ${friendly_name}"
+    bssid:
+      name: "ESP Connected BSSID ${friendly_name}"
+    mac_address:
+      name: "ESP Mac Wifi Address ${friendly_name}"
+    scan_results:
+      name: "ESP Latest Scan Results ${friendly_name}"
+
+binary_sensor:
+  - platform: status
+    name: "ESP Status ${friendly_name}"
+
+sensor:
+  - platform: debug
+    free:
+      name: "ESP Memory Free ${friendly_name}"
+  - platform: internal_temperature
+    name: "ESP Temperature ${friendly_name}"
+  - platform: wifi_signal # Reports the WiFi signal strength/RSSI in dB
+    name: "WiFi Signal dB ${friendly_name}"
+    id: wifi_signal_db${espID}
+    update_interval: 60s
+    entity_category: "diagnostic"
+  - platform: copy # Reports the WiFi signal strength in %
+    source_id: wifi_signal_db${espID}
+    name: "WiFi Signal Percent ${friendly_name}"
+    filters:
+      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
+    unit_of_measurement: "%"
+    entity_category: "diagnostic"
+  - platform: uptime
+    name: "ESP Uptime Sensor ${friendly_name}"
